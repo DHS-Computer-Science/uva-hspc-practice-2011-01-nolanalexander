@@ -1,0 +1,71 @@
+import java.util.Scanner;
+import java.text.NumberFormat;
+
+public class GeometricInflation
+{
+   public static void main(String[] args)
+   {
+      Scanner input = new Scanner(System.in);
+      NumberFormat endResult = NumberFormat.getCurrencyInstance();
+      
+      while(true)
+      {
+         double m1 = input.nextDouble();
+         if(m1 < 0)
+         {
+            break;
+         }
+         double m2 = input.nextDouble();
+         double m3 = input.nextDouble();
+         int objM = input.nextInt();
+         int alternator = 1;
+         
+         if(objM == 1)
+         {
+            System.out.println("Month 1 cost: " + endResult.format(m1));
+         }
+         else if(objM == 2)
+         {
+            System.out.println("Month 2 cost: " + endResult.format(m2));
+         }
+         else if(objM == 3)
+         {
+            System.out.println("Month 3 cost: " + endResult.format(m3));
+         }
+         else
+         {
+            for(int i = 4; i <= objM; i++)
+            {
+               if(alternator == 1)
+               {
+                  m1 = Math.round((m1 * m2 / m3)*100)/100.0;
+                  alternator = 2;
+               }
+               else if(alternator == 2)
+               {
+                  m2 = Math.round((m2 * m3 / m1)*100)/100.0;
+                  alternator = 3;
+               }
+               else if(alternator == 3)
+               {
+                  m3 = Math.round((m3 * m1 / m2)*100)/100.0;
+                  alternator = 1;
+               }
+            }
+            System.out.print("Month "+ objM +" cost: ");
+            if(alternator == 2)
+            {
+               System.out.println(endResult.format(m1));
+            }
+            else if(alternator == 3)
+            {
+               System.out.println(endResult.format(m2));
+            }
+            else if(alternator == 1)
+            {
+               System.out.println(endResult.format(m3));
+            }
+         }
+      }
+   }
+}
